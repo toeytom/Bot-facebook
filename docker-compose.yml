@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  
+  node:
+    container_name: Bot-node
+    build: .
+    volumes:
+      - ./:/app
+    ports:
+      - "8000:8000"
+    command: nodemon /bot/app.js
+
+ 
