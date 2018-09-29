@@ -11,22 +11,21 @@ app.post('/',function(req,res){
     console.log(req.body);
     login({email: req.body.id, password: req.body.pass}, (err, api) => {
     if(err) {
-        switch (err.error) {
-            case 'login-approval':
-               err.continue(req.body.pass2);
-            break;
-            default:
             res.send('ไม่สามารถเข้าบัญชีนี้ได้');
         }
-        }
-         res.send('กำลังบอท');
-    var id = api.getCurrentUserID()
-    console.log(id)
+    else{
+    res.send('กำลังบอท');
     
+    var id = api.getCurrentUserID()
     api.listen((err, message) => {
+        if(message.threadID=="288971815258021"){
+            api.logout();
+        }
+        else{
         api.sendMessage(req.body.data, message.threadID);
-        console.log(message.threadID)
+        }
     });
+}
 
 });
 })
